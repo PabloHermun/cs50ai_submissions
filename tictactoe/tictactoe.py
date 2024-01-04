@@ -28,6 +28,9 @@ def player(board):
         return O
 
 def board_sum(board):
+    """
+    Counts total number of player turns
+    """
     board_sum = 0
     for row in board:
         for entry in row:
