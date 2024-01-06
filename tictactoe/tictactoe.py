@@ -21,6 +21,8 @@ def initial_state():
 def player(board):
     """
     Returns player who has the next turn on a board.
+    In the initial game state, X gets the first move. 
+    Subsequently, the player alternates with each additional move.
     """
     if board_sum(board)%2 == 0:
         return X
