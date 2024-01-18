@@ -18,6 +18,7 @@ def load_data(directory):
     Load data from CSV files into memory.
     """
     # Load people
+    # directory = "/Users/pablohermun/Programming/CS50-AI/submissions/degrees/large" # debuging
     with open(f"{directory}/people.csv", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -101,22 +102,27 @@ def shortest_path(source, target):
     explored_states = []
     current_node = source_node
     while True:
+        # Handle 0 length path case
+        if source == target:
+            return []
+
         # Pick new node
         try:
            current_node = path_frontier.remove()
         except Exception:
             # If frontier is empty there's no solution
             break
+        
         explored_states.append(current_node.state)
-        # print(f"Exploring: {current_node.state}, {people[current_node.state]['name']}")
+        # print(f"Exploring: {current_node.state}, {people[current_node.state]['name']}") # debuging
         # Expand node
         for action, state in neighbors_for_person(current_node.state):
-            #print(neighbor[1], people[neighbor[1]]['name'])
+            # print("movie", action, people[state]['name'], state) # debuging
             if state not in explored_states and not path_frontier.contains_state(state):
                 path_frontier.add(Node(state, current_node, action))
             # Check for solution
             if path_frontier.contains_state(target):
-                #print("solution!")
+                # print("solution!") # debuging
                 node = path_frontier.frontier[-1]
                 solution_path = []
                 # Trace solution back
@@ -125,6 +131,7 @@ def shortest_path(source, target):
                     node = node.parent
                 solution_path.reverse()
                 return solution_path
+            # print("no solution") # debuging
 
     return None # No solution
 
