@@ -108,7 +108,7 @@ def shortest_path(source, target):
 
         # Pick new node
         try:
-           current_node = path_frontier.remove()
+            current_node = path_frontier.remove()
         except Exception:
             # If frontier is empty there's no solution
             break
@@ -127,13 +127,13 @@ def shortest_path(source, target):
                 solution_path = []
                 # Trace solution back
                 while node.parent is not None:
-                    solution_path.append((node.action ,node.state))
+                    solution_path.append((node.action, node.state))
                     node = node.parent
                 solution_path.reverse()
                 return solution_path
             # print("no solution") # debuging
 
-    return None # No solution
+    return None  # No solution
 
 
 def person_id_for_name(name):
