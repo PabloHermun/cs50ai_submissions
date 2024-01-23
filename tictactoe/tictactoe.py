@@ -42,9 +42,9 @@ def board_sum(board):
 
 def actions(board):
     """
-    Returns set of all possible actions (i, j) available on the board.
+    Returns set of all possible actions (i, j) available (EMPTY tiles) on the board.
     """
-    allowed_actions = {}
+    allowed_actions = set()
     for i in range(3):
         for j in range(3):
             if board[i][j] == EMPTY:
@@ -56,6 +56,21 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    new_board = [[EMPTY, EMPTY, EMPTY],
+                [EMPTY, EMPTY, EMPTY],
+                [EMPTY, EMPTY, EMPTY]]
+    # Copy the input board and add the action according to current player
+    if action in actions(board):
+        for i in range(3):
+            for j in range(3):
+                if (i,j) == action:
+                    new_board[i][j] = player(board)
+                else:
+                    new_board[i][j] = board[i][j]
+        return new_board
+    else:
+        raise ValueError
+
     raise NotImplementedError
 
 
