@@ -31,7 +31,7 @@ def player(board):
 
 def board_sum(board):
     """
-    Counts total number of player turns
+    Counts number of tiles played so far
     """
     board_sum = 0
     for row in board:
@@ -64,7 +64,21 @@ def winner(board):
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
+    In order fo there to be a winner there must be at least five tiles played
     """
+    tiles_played = board_sum(board)
+    # Check if enough tiles have been played
+    if tiles_played < 5:
+        return False
+
+    # Check if all tiles have been played
+    if tiles_played > 8:
+        return True
+    
+    # Check if X has winned
+
+    # Check if O has winned
+
     raise NotImplementedError
 
 

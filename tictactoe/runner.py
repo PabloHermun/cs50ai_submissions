@@ -84,7 +84,7 @@ while True:
                 if board[i][j] != ttt.EMPTY:
                     move = moveFont.render(board[i][j], True, white)
                     moveRect = move.get_rect()
-                    moveRect.center = rect.center
+                    moveRect.center = rect.center 
                     screen.blit(move, moveRect)
                 row.append(rect)
             tiles.append(row)
