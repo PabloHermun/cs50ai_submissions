@@ -78,13 +78,30 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    
+    # Check rows
+    for i in range(3):
+        symbol = board[i][0]
+        if board[i][1] == symbol == board[i][2] != EMPTY:
+                return symbol
+    # Check columns
+    for j in range(3):
+        symbol = board[0][j]
+        if board[1][j] == symbol == board[2][j] != EMPTY:
+                return symbol
+    # Check diagonals
+    if board[0][0] == board[1][1] == board[2][2] != EMPTY:
+        return board[0][0]
+    if board[2][0] == board[1][2] == board[0][2] != EMPTY:
+        return board[0][2]
+
+    return None
 
 
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
-    In order fo there to be a winner there must be at least five tiles played
+    In order for there to be a winner there must be at least five tiles played
     """
     tiles_played = board_sum(board)
     # Check if enough tiles have been played
@@ -95,11 +112,8 @@ def terminal(board):
     if tiles_played > 8:
         return True
     
-    # Check if X has winned
-
-    # Check if O has winned
-
-    raise NotImplementedError
+    # Check if there is a winner
+    return True if winner(board) != None else False
 
 
 def utility(board):
@@ -112,5 +126,7 @@ def utility(board):
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
+    Recursive?
     """
+
     raise NotImplementedError
