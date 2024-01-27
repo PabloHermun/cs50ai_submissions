@@ -130,24 +130,33 @@ def utility(board):
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
-    Recursive?
-    Minimax will never receive a terminal board directly, only recursively.
-    TODO: as of now it returns the utility value of the current board at every level,
-    but it ultimately musts return the optimal action
+    Process is actually run in minimax_wrapped(), and only the output ACTION
+    is returned to the rest of the program
     """
-    
+    score, optimal_action = minimax_wrapped(board)
+    return optimal_action
+
+def minimax_wrapped(board):
+    """
+    Minimax will never receive a terminal board directly, only recursively (BASE CASE).
+    Returns both the utility and the action associated
+    """
+    #TODO: add inline comments and debug (not recognizing one of the diagonals as winning)
     utilities = {}
     for action in actions(board):
         scenario = result(board,action)
 
         if terminal(scenario): 
-            return utility(scenario)
+            return utility(scenario), action
 
-        utilities[action] = minimax(scenario)
+        utilities[action] = minimax_wrapped(scenario)[0]
     
     if player(board) == X:
-        return max(utilities.values())
+        score = max(utilities.values())
+        return score, max(utilities, key=utilities.get)
     if player(board) == O:
-        return min(utilities.values())
-
+        score = min(utilities.values())
+        return score, min(utilities, key=utilities.get)
+            
     raise NotImplementedError
+
