@@ -89,9 +89,11 @@ def winner(board):
         symbol = board[0][j]
         if board[1][j] == symbol == board[2][j] != EMPTY:
                 return symbol
+
     # Check diagonals
     if board[0][0] == board[1][1] == board[2][2] != EMPTY:
         return board[0][0]
+
     if board[2][0] == board[1][2] == board[0][2] != EMPTY:
         return board[0][2]
 
@@ -120,13 +122,32 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
+    numerized = {X: 1, O: -1, None: 0}
+
+    return numerized[winner(board)]
 
 
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     Recursive?
+    Minimax will never receive a terminal board directly, only recursively.
+    TODO: as of now it returns the utility value of the current board at every level,
+    but it ultimately musts return the optimal action
     """
+    
+    utilities = {}
+    for action in actions(board):
+        scenario = result(board,action)
+
+        if terminal(scenario): 
+            return utility(scenario)
+
+        utilities[action] = minimax(scenario)
+    
+    if player(board) == X:
+        return max(utilities.values())
+    if player(board) == O:
+        return min(utilities.values())
 
     raise NotImplementedError
